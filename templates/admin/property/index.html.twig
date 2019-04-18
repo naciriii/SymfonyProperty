@@ -1,0 +1,58 @@
+{% extends "admin_base.html.twig" %}
+{% block title %} my properties {% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+	<div class="card ">	
+		<div class="card-header">
+			Properties
+			
+		</div>
+		<div class="card-body">
+		<table class="table table-bordered">
+			<thead>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Surface</th>
+				<th>Rooms</th>
+				<th>Bed Rooms</th>
+
+				<th>Floor</th>
+				<th>City</th>
+				<th>Address</th>
+
+				<th>Heat</th>
+				<th></th>
+
+
+			</thead>
+			<tbody>
+				{% for prop in properties %}
+				<tr>
+				<td>{{prop.Title}}</td>
+				<td>{{prop.Description}}</td>
+				<td>{{prop.Surface}}</td>
+				<td>{{prop.Rooms}}</td>
+				<td>{{prop.BedRooms}} </th>
+
+				<td>{{prop.Floor}}</td>
+				<td>{{prop.City}}</td>
+				<td>{{prop.Address}}</td>
+
+				<td>{{prop.getTextHeat()}}</td>
+				<td><a href='{{url("admin.property.edit",{"property": prop.id})}}'>Edit</a>
+					<a href='{{absolute_url("/test",{"property": prop.id})}}'>Delet</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>			
+		</div>
+	</div>
+	
+</div>
+
+
+
+
+{% endblock %}
+

@@ -1,0 +1,27 @@
+{% extends "admin_base.html.twig" %}
+{% block title %} Edit Property {% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+	<div class="card ">	
+		<div class="card-header">
+			Edit Property
+			
+		</div>
+		<div class="card-body">
+			{{ form_start(form) }}
+			
+			{{ form_widget(form) }}
+			<button class="btn btn-primary">Save</button>
+
+			{{ form_end(form) }}
+		</div>
+	</div>
+	
+</div>
+
+
+
+
+{% endblock %}
+
