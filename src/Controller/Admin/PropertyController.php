@@ -10,6 +10,7 @@ use App\Repository\PropertyRepository;
 use App\Entity\Property;
 use App\Form\PropertyType;
 use Doctrine\Common\Persistence\ObjectManager;
+use  Knp\Component\Pager\PaginatorInterface;
 
 class PropertyController extends AbstractController
 {
@@ -17,15 +18,23 @@ class PropertyController extends AbstractController
     {
         $this->repository = $pr;
         $this->em = $em;
+
     }
 
     /**
      * @Route("admin/property", name="admin.property.index")
      * @return [type] [description]
      */
-    public function index()
+    public function index(PaginatorInterface $paginator, Request $request)
     {
-        $properties = $this->repository->findAll();
+        $page = $request->get('page') ?? 1;
+       
+        $query = $this->repository->createQueryBuilder('c')
+    ->getQuery();
+    
+
+            $properties = $paginator->paginate($query, $page, 10);
+          
 
 
         return $this->render('admin/property/index.html.twig', ['properties' => $properties]);
