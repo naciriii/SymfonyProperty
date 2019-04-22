@@ -1,0 +1,31 @@
+{% extends "admin_base.html.twig" %}
+{% block title %} Add Property {% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+	<div class="col-12">
+	<div class="card">	
+		<div class="card-header">
+			Add Property
+			
+		</div>
+		{% set view = form.createView() %}
+
+		<div class="card-body">
+			{{ form_start(view) }}
+			
+			{{ form_widget(view) }}
+			<button class="btn btn-primary">Save</button>
+
+			{{ form_end(view) }}
+		</div>
+	</div>
+	</div>
+	
+</div>
+
+
+
+
+{% endblock %}
+

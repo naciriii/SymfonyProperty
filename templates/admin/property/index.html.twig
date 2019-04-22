@@ -3,6 +3,30 @@
 
 {% block body %}
 <div class="container mt-4">
+	<p>
+		<a href="{{path('admin.property.create')}}">
+			<button class="btn btn-sm btn-block btn-info">Add</button>
+		</a>
+	</p>
+
+
+
+	
+
+
+
+
+
+		{% if (app.session.getFlashBag().peek('success')) %}
+		
+	{% for f in app.flashes("success") %}
+
+	<div class=" alert alert-success">{{f}}</div>
+	{% endfor %}
+
+	{% endif %}
+
+	
 	<div class="card ">	
 		<div class="card-header">
 			Properties
@@ -41,7 +65,7 @@
 
 				<td>{{prop.getTextHeat()}}</td>
 				<td><a href='{{url("admin.property.edit",{"property": prop.id})}}'>Edit</a>
-					<a href='{{absolute_url("/test",{"property": prop.id})}}'>Delet</a></td>
+					<a href='{{path("admin.property.delete",{"property": prop.id})}}'>Delet</a></td>
 				</tr>
 				{% endfor %}
 			</tbody>
