@@ -8,9 +8,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PropertyRepository;
 use App\Entity\Property;
+use App\Entity\PropertySearch;
 use App\Form\PropertyType;
 use Doctrine\Common\Persistence\ObjectManager;
 use  Knp\Component\Pager\PaginatorInterface;
+use App\Form\PropertySearchType;
 
 class PropertyController extends AbstractController
 {
@@ -27,17 +29,41 @@ class PropertyController extends AbstractController
      */
     public function index(PaginatorInterface $paginator, Request $request)
     {
+        $propertySearch = new PropertySearch();
+        $form = $this->createForm(PropertySearchType::class, $propertySearch);
+
+        $form->handleRequest($request);
+
         $page = $request->get('page') ?? 1;
        
-        $query = $this->repository->createQueryBuilder('c')
-    ->getQuery();
+        $query = $this->repository->createQueryBuilder('c');
+   
+
+    if($propertySearch->getMinSurface()) {
+        $query->andWhere('c.surface > :minSurface')
+                ->setParameter(':minSurface',$propertySearch->getMinSurface());
+
+    }
+
+
+ if($propertySearch->getMaxPrice()) {
+        $query->andWhere('c.price < :maxPrice')
+            ->setParameter(':maxPrice',$propertySearch->getMaxPrice());
+
+        
+    }
+    $query = $query->getQuery();
+  
+
+
     
 
             $properties = $paginator->paginate($query, $page, 10);
           
 
 
-        return $this->render('admin/property/index.html.twig', ['properties' => $properties]);
+        return $this->render('admin/property/index.html.twig', ['properties' => $properties,
+            'searchForm' => $form->createView()]);
     }
     /**
      * @Route("admin/property/edit/{property}", name="admin.property.edit")

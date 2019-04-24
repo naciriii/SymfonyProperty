@@ -8,6 +8,30 @@
 			<button class="btn btn-sm btn-block btn-info">Add</button>
 		</a>
 	</p>
+	<div class="jumbotron">
+		<div class="container">
+			{{form_start(searchForm)}}
+			<div class="form-row">
+				<div class="col">
+					{{form_row(searchForm.MinSurface)}}
+				</div>
+	
+		
+				<div class="col">
+				{{form_row(searchForm.MaxPrice)}}
+			</div>
+		
+			
+				<div class="col">
+				<input type="submit" value="Submit" class="btn  btn-primary" name="">
+			
+		</div>
+	</div>
+					{{form_end(searchForm)}}
+
+		</div>	
+
+	</div>
 
 
 
@@ -38,6 +62,7 @@
 				<th>Title</th>
 				<th>Description</th>
 				<th>Surface</th>
+				<th>Price</th>
 				<th>Rooms</th>
 				<th>Bed Rooms</th>
 
@@ -56,6 +81,7 @@
 				<td>{{prop.Title}}</td>
 				<td>{{prop.Description}}</td>
 				<td>{{prop.Surface}}</td>
+				<td>{{prop.Price}}</td>
 				<td>{{prop.Rooms}}</td>
 				<td>{{prop.BedRooms}} </th>
 
