@@ -52,7 +52,7 @@ class PropertyController extends AbstractController
 
         
     }
-    $query = $query->getQuery();
+ $query = $query->getQuery();
   
 
 

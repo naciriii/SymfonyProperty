@@ -3,10 +3,12 @@
 namespace App\Form;
 
 use App\Entity\PropertySearch;
+use App\Entity\Option;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class PropertySearchType extends AbstractType
 {
@@ -28,6 +30,13 @@ class PropertySearchType extends AbstractType
 
 
                 ]
+            ])
+            ->add('options',EntityType::class, [
+                'required' => false,
+                'label' => false,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'class' => Option::class
             ])
         ;
     }
