@@ -5,9 +5,11 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PropertyRepository")
+ * @Vich\Uploadable
  */
 class Property
 {
@@ -19,6 +21,7 @@ class Property
     public function __construct()
     {
         $this->created_at = new \DateTime();
+        $this->updated_at = new \DateTime();
         $this->sold = false;
         $this->options = new ArrayCollection();
     }
@@ -28,6 +31,16 @@ class Property
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @Vich\UploadableField(mapping="property_image", fileNameProperty="filename")
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $filename;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -98,6 +111,11 @@ class Property
      * @ORM\ManyToMany(targetEntity="App\Entity\Option", inversedBy="properties")
      */
     private $options;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
 
     public function getId(): ?int
     {
@@ -291,4 +309,41 @@ class Property
 
         return $this;
     }
+
+     public function getImageFile() 
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile($imageFile): self
+    {
+        $this->imageFile = $imageFile;
+         $this->updated_at = new \DateTime('now');
+
+        return $this;
+    }
+
+    public function getFilename()
+    {
+        return $this->filename;
+
+    }
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
 }

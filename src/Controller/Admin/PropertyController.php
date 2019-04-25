@@ -52,6 +52,17 @@ class PropertyController extends AbstractController
 
         
     }
+    if($propertySearch->getOptions()->count())
+    {
+        $i = 0;
+        foreach ($propertySearch->getOptions() as $option) {
+            $i ++;
+            $query->andWhere(":option".$i." member of c.options")
+            ->setParameter(":option".$i, $option);
+
+            
+        }
+    }
  $query = $query->getQuery();
   
 

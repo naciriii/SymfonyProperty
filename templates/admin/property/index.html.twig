@@ -75,6 +75,7 @@
 
 				<th>Heat</th>
 				<th></th>
+				<th></th>
 
 
 			</thead>
@@ -93,6 +94,7 @@
 				<td>{{prop.Address}}</td>
 
 				<td>{{prop.getTextHeat()}}</td>
+				<td><img src="{{ vich_uploader_asset(prop, 'imageFile') }}" class="img-responsive"></td>
 				<td><a href='{{url("admin.property.edit",{"property": prop.id})}}'>Edit</a>
 					<a href='{{path("admin.property.delete",{"property": prop.id})}}'>Delet</a></td>
 				</tr>
